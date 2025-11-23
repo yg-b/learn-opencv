@@ -1,10 +1,19 @@
+import numpy as np
 import cv2 as cv
 import sys
 
-img = cv.imread("image/8326cffc1e178a82b901304d9955648da9773812429d.jpg")
-if img is None:
-    sys.exit("无法读取图像")
-cv.imshow("show window",img)
-k = cv.waitKey(0)
-if k == ord ("s"):
-    cv.imwrite("image/test.jpg",img)
+cap = cv.VideoCapture(0)
+if not cap.isOpened():
+    print("Cannot open camera")
+    exit()
+while True:
+    ret,frame = cap.read()
+    if not ret:
+        print("Can't receive frame (stream end?). Exiting ...")
+        break
+    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
+    cv.imshow('frame', gray)
+    if cv.waitKey(1) == ord('q'):
+        break 
+cap.release()
+cv.destroyAllWindows()
