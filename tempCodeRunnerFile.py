@@ -1,1 +1,4 @@
-cv.rectangle(img,(ix,iy),(x,y),(0,255,0),-1)
+    if s == 0:
+        img[:] = 0
+    else:
+        img[:] = [b,g,r]
