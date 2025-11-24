@@ -1,0 +1,1 @@
+cv.rectangle(img,(ix,iy),(x,y),(0,255,0),-1)
