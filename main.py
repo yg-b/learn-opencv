@@ -2,18 +2,21 @@ import numpy as np
 import cv2 as cv
 import sys
 
-cap = cv.VideoCapture(0)
-if not cap.isOpened():
-    print("Cannot open camera")
-    exit()
+def draw_circle(event,x,y,flags,param):
+        if event == cv.EVENT_LBUTTONDBLCLK:
+            cv.circle(img,(x,y),100,(255,0,0),-1)
+
+img = cv.imread("image/test.jpg")
+if img is None:
+    sys.exit("can not do")
+#events = [i for i in dir(cv) if 'EVENT' in i]
+#print(events)
+cv.namedWindow('image')
+cv.setMouseCallback ( 'image' , draw_circle)
+cv.line(img,(0,0),(511,511),(255,0,0),5)
 while True:
-    ret,frame = cap.read()
-    if not ret:
-        print("Can't receive frame (stream end?). Exiting ...")
-        break
-    gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
-    cv.imshow('frame', gray)
-    if cv.waitKey(1) == ord('q'):
-        break 
-cap.release()
+    cv.imshow("image",img)
+    k = cv.waitKey(1)
+    if k == ord("q"):
+         break
 cv.destroyAllWindows()
